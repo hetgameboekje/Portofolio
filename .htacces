@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# Redirect all requests to main.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /main.php [L,QSA]
+
+# Optionally, prevent access to sensitive files in subdirectories
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|bak)$">
+    Require all denied
+</FilesMatch>
+
+# Example structure for routing in main.php
+# URL: /dashboard/view -> "/dashboard/view/dashboardview.php"
+# URL: /dashboard/model -> "/dashboard/model/dashboardmodel.php"
+
+# Your main.php should parse the URL and include the correct controller,
+# model, or view as needed based on the URL.
