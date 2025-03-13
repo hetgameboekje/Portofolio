@@ -23,7 +23,9 @@ class Init {
             return;
         }
     
-        $validExtensions = ['todo', 'dashboard'];
+        $validExtensions = [
+            'login'
+            ,'dashboard'];
     
         if (in_array($input, $validExtensions)) {
             require './extension/' . $input . '/controller.php';
