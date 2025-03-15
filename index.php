@@ -7,11 +7,7 @@ class Init {
         $url = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
         
         $extension = $url[0] ?? null;
-        // $action = $url[1] ?? null;
-        // $id = $url[2] ?? null;
-        // $subaction = $url[3] ?? null;
-        // $subid = $url[4] ?? null;
-
+        
         self::extension($extension);
     }
 
@@ -24,14 +20,23 @@ class Init {
         }
     
         $validExtensions = [
-            'login'
-            ,'dashboard'];
+            'login',
+            'dashboard'
+        ];
     
         if (in_array($input, $validExtensions)) {
+            echo "Loading extension: $input\n";
             require './extension/' . $input . '/controller.php';
             $class = '\\extension\\' . $input . '\\Controller';
             if (class_exists($class)) {
-                $class::init(); // Call the init function of the loaded extension
+                echo "Class exists: $class\n";
+                try {
+                    $class::init(); // Call the init function of the loaded extension
+                } catch (Exception $e) {
+                    echo "Error calling init: " . $e->getMessage() . "\n";
+                }
+            } else {
+                echo "Class does not exist: $class\n";
             }
             return;
         }
