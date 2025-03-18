@@ -1,32 +1,31 @@
 <?php
-namespace extension\login\controller;
+namespace extension\dashboard\controller;
 
-use extension\login\model\LoginModel;
+use extension\dashboard\model\DashboardModel;
 
-class LoginController {
+class Controller {
     private $model;
 
     public function __construct() {
-        $this->model = new LoginModel();
+        // Instantiate the model class
+        $this->model = new DashboardModel();
     }
 
     public function index() {
-        // Default method
-        echo "Login page";
+        echo "Dashboard home";
+        // Optionally, call the model method
+        // echo $this->model->getData();
     }
 
     public function create() {
         $this->model->createUser();
-        echo "User created";
     }
 
     public function remove() {
         $this->model->deleteUser();
-        echo "User removed";
     }
 
     public function update() {
         $this->model->updateUser();
-        echo "User updated";
     }
 }

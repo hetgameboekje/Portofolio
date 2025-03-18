@@ -1,11 +1,17 @@
 <?php
+namespace extension\login\model;
 
-namespace extension\login\model\loginModel;
+class LoginModel {
+    public function createUser() {
+        // Logic for creating a user
+        print_r("HELP");
+    }
 
-class loginModel {
-    public static function details(){
-        print_r('detail page login model');
+    public function deleteUser() {
+        // Logic for deleting a user
+    }
+
+    public function updateUser() {
+        // Logic for updating a user
     }
 }
-
-?>
