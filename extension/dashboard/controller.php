@@ -1,18 +1,26 @@
 <?php
-
 namespace extension\dashboard;
 
 use extension\dashboard\model\dashboardmodel;
 
 class controller {
-    public static function init()
-    {
-        self::details();
+    private $data = [];
+    private $model;
+
+    public function __construct() {
+        $this->model = new DashboardModel();
     }
 
-    public static function details(){
-        echo 'hello<br>';
-        $model = new dashboardmodel();
-        $model->details();
+    public function init() {
+        $this->details();
+    }
+
+    public function details() {
+        $this->data = $this->model->details();
+        $this->subview('dashboard');
+    }
+
+    private function subview($template) {
+        include __DIR__ . '/view/' . $template . '.php';
     }
 }

@@ -3,16 +3,20 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Autoloader
 spl_autoload_register(function ($className) {
     $baseDir = __DIR__ . '/';
     $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
     $file = $baseDir . $className . '.php';
     
+    error_log("Trying to load: $file"); // Debug line
+    
     if (file_exists($file)) {
         require_once $file;
+    } else {
+        error_log("Autoload failed: File $file not found");
     }
 });
+
 
 class Init {
     public static function init()
@@ -32,10 +36,11 @@ class Init {
     
         if (in_array($input, $validExtensions)) {
             $class = 'extension\\' . $input . '\\controller';
-           
+            
             if (class_exists($class)) {
-                
-                $class::init(); 
+                // Instantiate controller and call init()
+                $controller = new $class();
+                $controller->init(); // Changed to instance method call
             } else {
                 echo "Class does not exist<br>";
             }
