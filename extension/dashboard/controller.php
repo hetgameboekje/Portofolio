@@ -2,19 +2,17 @@
 
 namespace extension\dashboard;
 
-use extension\dashboardmodel;
+use extension\dashboard\model\dashboardmodel;
 
-class Controller {
+class controller {
     public static function init()
     {
-       
-        $url = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-        print_r($url); // Debugging: check URL structure
-        
+        self::details();
     }
-    public function details(){
-        print_r(details_dashboard());
+
+    public static function details(){
+        echo 'hello<br>';
+        $model = new dashboardmodel();
+        $model->details();
     }
 }
-
-?>

@@ -1,37 +1,52 @@
 <?php
 
-class Init {
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+// Autoloader
+spl_autoload_register(function ($className) {
+    $baseDir = __DIR__ . '/';
+    $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
+    $file = $baseDir . $className . '.php';
+    
+    echo "Trying to load: $file<br>"; // Debug output
+    
+    if (file_exists($file)) {
+        require_once $file;
+        echo "Successfully loaded: $file<br>"; // Debug output
+    } else {
+        echo "File not found: $file<br>"; // Debug output
+    }
+});
+
+class Init {
     public static function init()
     {
-        $url = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+        $url = array_filter(explode('/', trim($_SERVER['REQUEST_URI'], '/')));
+        $extension = $url[0] ?? 'dashboard'; // Only works for /dashboard URLs
         
-        $extension = $url[0] ?? null;
-        // $action = $url[1] ?? null;
-        // $id = $url[2] ?? null;
-        // $subaction = $url[3] ?? null;
-        // $subid = $url[4] ?? null;
-
+        // Better solution:
+        $extension = empty($url[0]) ? 'dashboard' : $url[0];
+        
+        echo "Requested extension: $extension<br>";
         self::extension($extension);
     }
 
     private static function extension($input)
     {
-        if ($input == '') {
-            require './extension/dashboard/controller.php';
-            \extension\dashboard\Controller::init(); // Call the init function
-            return;
-        }
-    
         $validExtensions = [
-            'login'
-            ,'dashboard'];
+            'login',
+            'dashboard'
+        ];
     
         if (in_array($input, $validExtensions)) {
-            require './extension/' . $input . '/controller.php';
-            $class = '\\extension\\' . $input . '\\Controller';
+            $class = 'extension\\' . $input . '\\controller';
+            echo "Trying to load class: $class<br>"; // Debug output
             if (class_exists($class)) {
+                echo "Class exists, calling init()<br>"; // Debug output
                 $class::init(); // Call the init function of the loaded extension
+            } else {
+                echo "Class does not exist<br>"; // Debug output
             }
             return;
         }
@@ -41,5 +56,3 @@ class Init {
 }
 
 Init::init();
-
-?>
