@@ -17,36 +17,44 @@ spl_autoload_register(function ($className) {
     }
 });
 
-
 class Init {
     public static function init()
     {
+        $baseExtension = [
+            'html'
+            ,'navbar'
+            
+        ];
+        foreach($baseExtension as $row){
+            $class = 'templates\\' . $row . '\\controller';
+
+        if (class_exists($class)) {
+            $controller = new $class();
+            $controller->init(); 
+        } else {
+            // return;
+        }
+    }
+
         $url = array_filter(explode('/', trim($_SERVER['REQUEST_URI'], '/')));
         $extension = empty($url[0]) ? 'dashboard' : $url[0];
-        
         self::extension($extension);
+        
+        $class = 'templates\\footer\\controller';
+        $controller = new $class();
+        $controller->init(); 
     }
 
     private static function extension($input)
     {
-        $validExtensions = [
-            'login',
-            'dashboard'
-        ];
-    
-        if (in_array($input, $validExtensions)) {
-            $class = 'extension\\' . $input . '\\controller';
-            if (class_exists($class)) {
-                // Instantiate controller and call init()
-                $controller = new $class();
-                $controller->init(); // Changed to instance method call
-            } else {
-                echo "Class does not exist<br>";
-            }
-            return;
+   
+        $class = 'extension\\' . $input . '\\controller';
+        if (class_exists($class)) {
+            $controller = new $class();
+            $controller->init(); // Changed to instance method call
+        } else {
+            http_response_code(404);
         }
-    
-        echo '404 not found';
     }
 }
 

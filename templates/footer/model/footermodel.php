@@ -1,8 +1,8 @@
 <?php
 
-namespace templates\navbar\model;
+namespace templates\footer\model;
 
-class navbarmodel {
+class footermodel {
     public function details(){
        
     }

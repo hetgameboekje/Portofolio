@@ -1,14 +1,14 @@
 <?php
-namespace templates\navbar;
+namespace templates\footer;
 
-use templates\navbar\model\navbarmodel;
+use templates\footer\model\footermodel;
 
 class controller {
     private $data = [];
     private $model;
 
     public function __construct() {
-        $this->model = new navbarmodel();
+        $this->model = new footermodel();
     }
 
     public function init() {
@@ -17,7 +17,7 @@ class controller {
 
     public function details() {
         $this->data = $this->model->details();
-        $this->subview('navbar');
+        $this->subview('footer');
     }
 
     private function subview($template) {
