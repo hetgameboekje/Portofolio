@@ -1,20 +1,26 @@
 <?php
-
 namespace extension\dashboard;
 
-use extension\dashboardmodel;
+use extension\dashboard\model\dashboardmodel;
 
-class Controller {
-    public static function init()
-    {
-       
-        $url = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-        print_r($url); // Debugging: check URL structure
-        
+class controller {
+    private $data = [];
+    private $model;
+
+    public function __construct() {
+        $this->model = new DashboardModel();
     }
-    public function details(){
-        print_r(details_dashboard());
+
+    public function init() {
+        $this->details();
+    }
+
+    public function details() {
+        $this->data = $this->model->details();
+        $this->subview('dashboard');
+    }
+
+    private function subview($template) {
+        include __DIR__ . '/view/' . $template . '.php';
     }
 }
-
-?>
