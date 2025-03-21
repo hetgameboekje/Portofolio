@@ -36,7 +36,6 @@ class Init {
     
         if (in_array($input, $validExtensions)) {
             $class = 'extension\\' . $input . '\\controller';
-            
             if (class_exists($class)) {
                 // Instantiate controller and call init()
                 $controller = new $class();
