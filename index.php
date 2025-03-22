@@ -21,8 +21,8 @@ class Init {
     public static function init()
     {
         $baseExtension = [
-            'html',
-            'navbar'
+            'html'
+            ,'navbar'
         ];
 
         foreach ($baseExtension as $row) {
@@ -31,9 +31,8 @@ class Init {
 
         $url = array_filter(explode('/', trim($_SERVER['REQUEST_URI'], '/')));
         $extension = empty($url[0]) ? 'dashboard' : $url[0];
-        // Now this calls getExtension for extension controllers:
-        self::extension($extension);
 
+        self::getExtension('extension' , $extension , 'controller');
         self::getExtension('templates', 'footer', 'controller');
     }
 
@@ -43,7 +42,7 @@ class Init {
         self::getExtension('extension', $input, 'controller');
     }
 
-    private static function getExtension($folder, $input, $type)
+    private static function getExtension($folder, $input, $type, $data = null)
     {
         // Basic sanity checks
         $allowedFolders = [

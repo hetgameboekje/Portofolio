@@ -2,6 +2,7 @@
 
 namespace extension\dashboard\view;
 
+$img = "https://images.pexels.com/photos/281260/pexels-photo-281260.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 ?>
 
 
@@ -9,7 +10,7 @@ namespace extension\dashboard\view;
   <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 600px;">
     <div class="carousel-inner h-100">
       <div class="carousel-item active h-100"><img class="w-100 d-block position-absolute h-100 fit-cover"
-          src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="Slide Image" style="z-index: -1;">
+          src="<?php echo $img;?>" alt="Slide Image" style="z-index: -1;">
         <div class="container d-flex flex-column justify-content-center h-100">
           <div class="row">
             <div class="col-md-6 col-xl-4 offset-md-2">
