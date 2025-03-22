@@ -21,41 +21,59 @@ class Init {
     public static function init()
     {
         $baseExtension = [
-            'html'
-            ,'navbar'
-            
+            'html',
+            'navbar'
         ];
-        foreach($baseExtension as $row){
-            $class = 'templates\\' . $row . '\\controller';
 
-        if (class_exists($class)) {
-            $controller = new $class();
-            $controller->init(); 
-        } else {
-            // return;
+        foreach ($baseExtension as $row) {
+            self::getExtension('templates', $row, 'controller');
         }
-    }
 
         $url = array_filter(explode('/', trim($_SERVER['REQUEST_URI'], '/')));
         $extension = empty($url[0]) ? 'dashboard' : $url[0];
+        // Now this calls getExtension for extension controllers:
         self::extension($extension);
-        
-        $class = 'templates\\footer\\controller';
-        $controller = new $class();
-        $controller->init(); 
+
+        self::getExtension('templates', 'footer', 'controller');
     }
 
     private static function extension($input)
     {
-   
-        $class = 'extension\\' . $input . '\\controller';
+        // Call the unified logic
+        self::getExtension('extension', $input, 'controller');
+    }
+
+    private static function getExtension($folder, $input, $type)
+    {
+        // Basic sanity checks
+        $allowedFolders = [
+            'templates',
+            'extension',
+            'lib',
+            'config'
+        ];
+        $allowedTypes = [
+            'controller',
+            'model',
+            'view'
+        ];
+
+        if (!in_array($folder, $allowedFolders, true) || !in_array($type, $allowedTypes, true)) {
+            $class = 'templates\\unknown\\controller';
+        } else {
+            // Optionally sanitize/whitelist inputs
+            $input = preg_replace('/[^a-zA-Z0-9_]/', '', $input);
+            $class = $folder . '\\' . $input . '\\' . $type;
+        }
+
         if (class_exists($class)) {
             $controller = new $class();
-            $controller->init(); // Changed to instance method call
+            $controller->init();
         } else {
-            $class = 'templates\\unknown\\controller';
-            $controller = new $class();
-            $controller->init(); 
+            // Fallback
+            $fallback = 'templates\\unknown\\controller';
+            $controller = new $fallback();
+            $controller->init();
         }
     }
 }

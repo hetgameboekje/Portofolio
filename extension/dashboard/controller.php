@@ -3,7 +3,7 @@ namespace extension\dashboard;
 
 use extension\dashboard\model\dashboardmodel;
 
-class controller extends basecontroller{
+class controller{
     private $data = [];
     private $model;
 

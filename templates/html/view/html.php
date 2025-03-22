@@ -8,7 +8,7 @@ class htmlview
 }
 
 $title = $this->model->getTitle();
-print_r($title);
+// print_r($title);
 ?>
 
 <!DOCTYPE html>
