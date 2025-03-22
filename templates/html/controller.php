@@ -9,10 +9,7 @@ class controller {
 
     public function __construct() {
         $this->model = new htmlmodel();
-        $this->subview('html');
-    }
 
-    public static function init() {
     }
 
     public function setTitle($title) {
@@ -20,8 +17,14 @@ class controller {
         $this->data['title'] = $title;
     }
 
-    private function subview($template, $data = null) {
-        extract($this->data);
+    public function init() {
+
+        $this->subview('html');
+    }
+
+
+
+    private function subview($template) {
         include __DIR__ . '/view/' . $template . '.php';
     }
 }
