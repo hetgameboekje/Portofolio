@@ -1,14 +1,14 @@
 <?php
-namespace extension\dashboard;
+namespace templates\unknown;
 
-use extension\dashboard\model\dashboardmodel;
+use templates\unknown\model\unknownmodel;
 
-class controller extends basecontroller{
+class controller {
     private $data = [];
     private $model;
 
     public function __construct() {
-        $this->model = new DashboardModel();
+        $this->model = new unknownmodel();
     }
 
     public function init() {
@@ -17,7 +17,7 @@ class controller extends basecontroller{
 
     public function details() {
         $this->data = $this->model->details();
-        $this->subview('dashboard');
+        $this->subview('unknown');
     }
 
     private function subview($template) {

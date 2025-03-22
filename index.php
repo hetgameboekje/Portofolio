@@ -53,7 +53,9 @@ class Init {
             $controller = new $class();
             $controller->init(); // Changed to instance method call
         } else {
-            http_response_code(404);
+            $class = 'templates\\unknown\\controller';
+            $controller = new $class();
+            $controller->init(); 
         }
     }
 }

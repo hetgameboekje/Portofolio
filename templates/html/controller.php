@@ -1,21 +1,27 @@
 <?php
 namespace templates\html;
 
-// use templates\navbar\model\navbarmodel;
+use templates\html\model\htmlmodel;
 
 class controller {
-    private $data = [];
     private $model;
+    private $data = [];
 
     public function __construct() {
-        // $this->model = new navbarmodel();
+        $this->model = new htmlmodel();
         $this->subview('html');
     }
-    public static function init(){
-        
+
+    public static function init() {
     }
 
-    private function subview($template) {
+    public function setTitle($title) {
+        $this->model->setTitle($title);
+        $this->data['title'] = $title;
+    }
+
+    private function subview($template, $data = null) {
+        extract($this->data);
         include __DIR__ . '/view/' . $template . '.php';
     }
 }

@@ -5,7 +5,7 @@ namespace extension\dashboard\view;
 ?>
 
 
-<body>
+
   <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 600px;">
     <div class="carousel-inner h-100">
       <div class="carousel-item active h-100"><img class="w-100 d-block position-absolute h-100 fit-cover"
@@ -98,7 +98,3 @@ namespace extension\dashboard\view;
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
