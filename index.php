@@ -17,36 +17,63 @@ spl_autoload_register(function ($className) {
     }
 });
 
-
 class Init {
     public static function init()
     {
+        $baseExtension = [
+            'html'
+            ,'navbar'
+        ];
+
+        foreach ($baseExtension as $row) {
+            self::getExtension('templates', $row, 'controller');
+        }
+
         $url = array_filter(explode('/', trim($_SERVER['REQUEST_URI'], '/')));
         $extension = empty($url[0]) ? 'dashboard' : $url[0];
-        
-        self::extension($extension);
+
+        self::getExtension('extension' , $extension , 'controller');
+        self::getExtension('templates', 'footer', 'controller');
     }
 
     private static function extension($input)
     {
-        $validExtensions = [
-            'login',
-            'dashboard'
+        // Call the unified logic
+        self::getExtension('extension', $input, 'controller');
+    }
+
+    private static function getExtension($folder, $input, $type, $data = null)
+    {
+        // Basic sanity checks
+        $allowedFolders = [
+            'templates',
+            'extension',
+            'lib',
+            'config'
         ];
-    
-        if (in_array($input, $validExtensions)) {
-            $class = 'extension\\' . $input . '\\controller';
-            if (class_exists($class)) {
-                // Instantiate controller and call init()
-                $controller = new $class();
-                $controller->init(); // Changed to instance method call
-            } else {
-                echo "Class does not exist<br>";
-            }
-            return;
+        $allowedTypes = [
+            'controller',
+            'model',
+            'view'
+        ];
+
+        if (!in_array($folder, $allowedFolders, true) || !in_array($type, $allowedTypes, true)) {
+            $class = 'templates\\unknown\\controller';
+        } else {
+            // Optionally sanitize/whitelist inputs
+            $input = preg_replace('/[^a-zA-Z0-9_]/', '', $input);
+            $class = $folder . '\\' . $input . '\\' . $type;
         }
-    
-        echo '404 not found';
+
+        if (class_exists($class)) {
+            $controller = new $class();
+            $controller->init();
+        } else {
+            // Fallback
+            $fallback = 'templates\\unknown\\controller';
+            $controller = new $fallback();
+            $controller->init();
+        }
     }
 }
 

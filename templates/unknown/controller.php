@@ -1,14 +1,14 @@
 <?php
-namespace templates\navbar;
+namespace templates\unknown;
 
-use templates\navbar\model\navbarmodel;
+use templates\unknown\model\unknownmodel;
 
 class controller {
     private $data = [];
     private $model;
 
     public function __construct() {
-        $this->model = new navbarmodel();
+        $this->model = new unknownmodel();
     }
 
     public function init() {
@@ -17,7 +17,7 @@ class controller {
 
     public function details() {
         $this->data = $this->model->details();
-        $this->subview('navbar');
+        $this->subview('unknown');
     }
 
     private function subview($template) {

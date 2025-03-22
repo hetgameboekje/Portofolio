@@ -1,9 +1,11 @@
 <?php
 namespace extension\dashboard;
 
+use templates\html\controller as HtmlController;
 use extension\dashboard\model\dashboardmodel;
 
-class controller {
+
+class controller{
     private $data = [];
     private $model;
 
@@ -13,10 +15,15 @@ class controller {
 
     public function init() {
         $this->details();
+    
+   
     }
 
     public function details() {
-        $this->data = $this->model->details();
+        $htmlController = new HtmlController();
+
+        //$this->data = $this->model->details();
+        $htmlController->setTitle('dashboard');
         $this->subview('dashboard');
     }
 

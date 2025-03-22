@@ -1,6 +1,11 @@
+# ...
+Options -Indexes
 RewriteEngine On
 
-# Redirect requests to index.php if the requested file or directory does not exist
+# Define a custom 403 page
+ErrorDocument 403 /templates/unknown/view/unknown.php
+ErrorDocument 404 /templates/unknown/view/unknown.php
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
