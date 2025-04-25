@@ -1,8 +1,8 @@
 <?php
 
-namespace extension\dashboard\model;
+namespace extension\workhour\model;
 
-class DashboardModel {
+class WorkhourModel {
     public function details(){
        // $this->setTitle('Dashboard');
 
