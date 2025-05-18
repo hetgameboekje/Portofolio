@@ -3,24 +3,32 @@ namespace templates\navbar;
 
 use templates\navbar\model\navbarmodel;
 
-class controller {
+class controller
+{
     private $data = [];
     private $model;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->model = new navbarmodel();
     }
 
-    public function init() {
+    public function init()
+    {
         $this->details();
     }
 
-    public function details() {
+    public function details()
+    {
+        // Haal de navigatie-items op uit het model
         $this->data = $this->model->details();
         $this->subview('navbar');
     }
 
-    private function subview($template) {
+    private function subview($template)
+    {
+        // Maak $data beschikbaar in de view
+        $data = $this->data;
         include __DIR__ . '/view/' . $template . '.php';
     }
 }

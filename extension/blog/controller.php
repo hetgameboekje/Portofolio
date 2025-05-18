@@ -1,8 +1,8 @@
 <?php
-namespace extension\dashboard;
+namespace extension\blog;
 
 use templates\html\controller as HtmlController;
-use extension\dashboard\model\dashboardmodel;
+use extension\blog\model\blogmodel;
 
 
 class controller{
@@ -10,7 +10,7 @@ class controller{
     private $model;
 
     public function __construct() {
-        $this->model = new DashboardModel();
+        $this->model = new BlogModel();
     }
 
     public function init() {
@@ -23,11 +23,14 @@ class controller{
         $htmlController = new HtmlController();
 
         //$this->data = $this->model->details();
-        $htmlController->setTitle('dashboard');
-        $this->subview('dashboard');
+        $htmlController->setTitle('blog');
+        $this->subview('blog');
     }
 
     private function subview($template) {
         include __DIR__ . '/view/' . $template . '.php';
     }
 }
+
+//gewerkt aan de validatie van de excel rijen 
+// Ook een todo bij gehouden om alle fouten in kaart te brengen waarbij ik in het achtergrond script de validaties verbeterd heb en wat in de database heb aangepast
