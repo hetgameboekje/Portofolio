@@ -1,8 +1,8 @@
 <?php
-namespace extension\workhour;
+namespace extension\blog;
 
 use templates\html\controller as HtmlController;
-use extension\workhour\model\workhourmodel;
+use extension\blog\model\blogmodel;
 
 
 class controller{
@@ -10,7 +10,7 @@ class controller{
     private $model;
 
     public function __construct() {
-        $this->model = new WorkhourModel();
+        $this->model = new BlogModel();
     }
 
     public function init() {
@@ -23,8 +23,8 @@ class controller{
         $htmlController = new HtmlController();
 
         //$this->data = $this->model->details();
-        $htmlController->setTitle('workhour');
-        $this->subview('workhour');
+        $htmlController->setTitle('blog');
+        $this->subview('blog');
     }
 
     private function subview($template) {
