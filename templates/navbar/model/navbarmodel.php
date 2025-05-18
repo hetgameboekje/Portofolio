@@ -122,8 +122,9 @@ class navbarmodel
         $projectsDropdown = $this->addItem('Projects', 'projects', null, true);
         $projectsDropdown->addDropdownSubItem('Projecten', 'projects', ['extension' => 'projects', 'action' => 'overview']);
         $projectsDropdown->addDropdownSubItem('Todolist', 'projects');
-        $projectsDropdown->addDropdownSubItem('BPV registratie', 'projects', ['extension' => 'projects', 'action' => 'bpv']);
-        $projectsDropdown->addDropdownSubItem('Reflectie generator', 'projects', ['extension' => 'projects', 'action' => 'reflectie']);
+        $projectsDropdown->addDropdownSubItem('Werkuren', 'workhour');
+        // $projectsDropdown->addDropdownSubItem('BPV registratie', 'projects', ['extension' => 'projects', 'action' => 'bpv']);
+        // $projectsDropdown->addDropdownSubItem('Reflectie generator', 'projects', ['extension' => 'projects', 'action' => 'reflectie']);
 
         // Gewone link zonder expliciete URL (wordt /contact/details)
         $this->addItem('Contact', 'contact');
