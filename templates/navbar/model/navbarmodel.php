@@ -108,9 +108,6 @@ class navbarmodel
     {
         $this->navItems = []; // reset
 
-        // Gewone link
-        $this->addItem('Home', 'main', ['extension' => 'dashboard', 'action' => 'details']);
-
         // Dropdown: About me
         $aboutDropdown = $this->addItem('About me', 'about', null, true);
         $aboutDropdown->addDropdownSubItem('Social media', 'about', ['extension' => 'about', 'action' => 'social']);
@@ -120,7 +117,7 @@ class navbarmodel
 
         // Dropdown: Projects
         $projectsDropdown = $this->addItem('Projects', 'projects', null, true);
-        $projectsDropdown->addDropdownSubItem('Projecten', 'projects', ['extension' => 'projects', 'action' => 'overview']);
+        $projectsDropdown->addDropdownSubItem('Projecten', 'projects', ['extension' => 'project', 'action' => 'overview']);
         $projectsDropdown->addDropdownSubItem('Todolist', 'projects');
         $projectsDropdown->addDropdownSubItem('Werkuren', 'workhour');
         // $projectsDropdown->addDropdownSubItem('BPV registratie', 'projects', ['extension' => 'projects', 'action' => 'bpv']);
